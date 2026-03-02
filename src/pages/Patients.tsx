@@ -4,6 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 const patients = [
   { name: "Іванов Петро", phone: "+380 44 123 45 67", lastVisit: "02.03.2026", visits: 12 },
   { name: "Коваленко Марія", phone: "+380 50 987 65 43", lastVisit: "01.03.2026", visits: 5 },
@@ -15,6 +25,11 @@ const patients = [
 
 const Patients = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
   return (
     <AdminLayout title="Пацієнти">
     <div className="admin-card">
@@ -23,7 +38,31 @@ const Patients = () => {
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input placeholder="Пошук пацієнта..." className="pl-9 w-72" />
         </div>
-        <Button><Plus className="h-4 w-4 mr-2" /> Додати пацієнта</Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button><Plus className="h-4 w-4 mr-2" /> Додати пацієнта</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Новий пацієнт</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-2">
+              <div className="space-y-2">
+                <Label>ПІБ</Label>
+                <Input placeholder="Прізвище Ім'я По-батькові" value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Телефон</Label>
+                <Input placeholder="+380 XX XXX XX XX" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Email</Label>
+                <Input type="email" placeholder="email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <Button className="w-full" onClick={() => setOpen(false)}>Зберегти пацієнта</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
