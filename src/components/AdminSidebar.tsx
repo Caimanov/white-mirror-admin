@@ -1,7 +1,7 @@
 import {
   Users,
   CalendarDays,
-  FileText,
+  
   Stethoscope,
   LayoutDashboard,
   Percent,
@@ -26,7 +26,7 @@ const menuItems = [
   { title: "Панель Управління", url: "/", icon: LayoutDashboard },
   { title: "Пацієнти", url: "/patients", icon: Users },
   { title: "Записи", url: "/records", icon: CalendarDays },
-  { title: "Звіти", url: "/reports", icon: FileText },
+  
   { title: "Лікарі", url: "/doctors", icon: Stethoscope },
   { title: "Знижки", url: "/discounts", icon: Percent },
   { title: "Розклад", url: "/schedule", icon: Clock },

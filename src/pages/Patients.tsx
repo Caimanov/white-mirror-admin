@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
+import { useNavigate } from "react-router-dom";
 const patients = [
   { name: "Іванов Петро", phone: "+380 44 123 45 67", lastVisit: "02.03.2026", visits: 12 },
   { name: "Коваленко Марія", phone: "+380 50 987 65 43", lastVisit: "01.03.2026", visits: 5 },
@@ -13,8 +13,10 @@ const patients = [
   { name: "Ткаченко Дмитро", phone: "+380 99 333 22 11", lastVisit: "20.02.2026", visits: 7 },
 ];
 
-const Patients = () => (
-  <AdminLayout title="Пацієнти">
+const Patients = () => {
+  const navigate = useNavigate();
+  return (
+    <AdminLayout title="Пацієнти">
     <div className="admin-card">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div className="relative">
@@ -35,7 +37,7 @@ const Patients = () => (
           </thead>
           <tbody>
             {patients.map((p, i) => (
-              <tr key={i} className="border-b last:border-0 hover:bg-muted/50 transition-colors">
+              <tr key={i} className="border-b last:border-0 hover:bg-muted/50 transition-colors cursor-pointer" onClick={() => navigate(`/patients/${i + 1}`)}>
                 <td className="py-3 px-2 flex items-center gap-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-primary/10 text-primary text-xs">
@@ -53,7 +55,8 @@ const Patients = () => (
         </table>
       </div>
     </div>
-  </AdminLayout>
-);
+    </AdminLayout>
+  );
+};
 
 export default Patients;
